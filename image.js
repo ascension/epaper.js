@@ -17,18 +17,22 @@ function convertPNGto1BitBW(pngBytes) {
             }
             const height = png.getHeight();
             const width = png.getWidth();
-            const outBuffer = allocBuffer_8(width, height);
+            const bwBuffer = allocBuffer_8(width, height);
+            const redBuffer = allocBuffer_8(width, height);
             for (let y = 0; y < height; y++) {
                 for (let x = 0; x < width; x++) {
                     const [r, g, b, alpha] = png.getPixel(x, y);
                     const luma = getLuma(r, g, b);
+
+                    out_index = Math.floor((x + y * width) / 8);
                     if (luma < 50) {
-                        out_index = Math.floor((x + y * width) / 8);
-                        outBuffer[out_index] &= ~(0x80 >> Math.floor(x % 8));
+                        bwBuffer[out_index] &= ~(0x80 >> Math.floor(x % 8));
+                    } else if (b === 0 && r > 0) {
+                        redBuffer[out_index] |= 0x80 >> Math.floor(x % 8));
                     }
                 }
             }
-            resolve(outBuffer);
+            resolve({ bwBuffer, redBuffer });
         });
     });
 }
