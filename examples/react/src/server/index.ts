@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import { init, devices, getBitcoinPrice } from 'epaperjs';
 import text2png from './text2png';
 
-function setUpDisplay(screen) {
+function setUpDisplay(screen: any) {
     screen.driver.dev_init();
     screen.init();
     screen.driver.clear();

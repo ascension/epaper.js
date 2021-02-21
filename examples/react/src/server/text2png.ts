@@ -240,7 +240,7 @@ function parseOptions(options: Partial<Options>) {
     };
 }
 
-function or(...args) {
+function or(...args: any[]) {
     for (const arg of args) {
         if (typeof arg !== 'undefined') {
             return arg;

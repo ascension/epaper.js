@@ -6,7 +6,7 @@ const RES_PIXEL_COUNT = RES_WIDTH * RES_HEIGHT;
 const TARGET_COLOR_BUFFER_SIZE = RES_PIXEL_COUNT >> 3;
 const SOURCE_COLOR_BUFFER_SIZE = RES_PIXEL_COUNT << 2;
 
-function displayImageBuffer(buffer) {
+function displayImageBuffer(buffer: Buffer) {
     if (buffer.length !== SOURCE_COLOR_BUFFER_SIZE) {
         throw new Error(
             'Invalid image buffer size. This module expects BGRA color buffer.'
@@ -30,7 +30,13 @@ function displayImageBuffer(buffer) {
     return { bwBuffer, redBuffer };
 }
 
-const renderCanvas = ({ price, displayName }) => {
+const renderCanvas = ({
+    price,
+    displayName,
+}: {
+    price: string;
+    displayName: string;
+}) => {
     const canvas = createCanvas(RES_WIDTH, RES_HEIGHT);
     const ctx = canvas.getContext('2d');
 
