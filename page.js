@@ -15,8 +15,11 @@ class Page {
         const pageImage = await this.browserPage.screenshot({
             type: 'png',
             fullpage: 'true',
-            encoding: 'binary',
+            encoding: 'base64',
         });
+
+        const img = new Image()
+        img.src = pageImage
 
         if (this.sleeping) {
             this.screen.init();

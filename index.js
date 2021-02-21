@@ -3,6 +3,7 @@ const devices = require('./devices.js');
 const readline = require('readline');
 const WebSocket = require('ws');
 const renderBrowser = require('./render.js');
+const { getBitcoinPrice } = require('./graphql');
 
 const defaultConfig = {
     webPort: 3000,
@@ -11,14 +12,15 @@ const defaultConfig = {
     url: `http://localhost:3000/index.html`,
 };
 
-const defaultRenderCallback = (page, ws) => {
+const defaultRenderCallback = (page) => {
     page.onConsoleLog((msg) => console.log(msg));
 
-    ws.on('message', async (message) => {
-        if (message === 'render') {
-            await page.display();
-        }
-    });
+    await page.display();
+    
+    // ws.on('message', async (message) => {
+    //     if (message === 'render') {
+    //     }
+    // });
 };
 
 function setupKeyInput(driver) {
@@ -52,4 +54,4 @@ function init(
     });
 }
 
-module.exports = { init, devices };
+module.exports = { init, devices, getBitcoinPrice };

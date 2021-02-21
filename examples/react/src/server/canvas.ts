@@ -22,21 +22,22 @@ function displayImageBuffer(buffer) {
         if (red === 0) {
             bwBuffer[i >> 3] &= ~(0x80 >> (i % RES_WIDTH) % 8);
         } else if (blue === 0 && red > 0) {
-            redBuffer[i >> 3] |= 0x80 >> (i % RES_WIDTH) % 8;
+            redBuffer[i >> 3] &= ~(0x80 >> (i % RES_WIDTH) % 8);
+            // redBuffer[i >> 3] |= 0x80 >> (i % RES_WIDTH) % 8;
         }
     }
 
     return { bwBuffer, redBuffer };
 }
 
-const renderCanvas = () => {
+const renderCanvas = ({ price, displayName }) => {
     const canvas = createCanvas(RES_WIDTH, RES_HEIGHT);
     const ctx = canvas.getContext('2d');
 
     // Draw something
     ctx.antialias = 'none';
     ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, epd.RES_WIDTH, epd.RES_HEIGHT);
+    ctx.fillRect(0, 0, RES_WIDTH, RES_HEIGHT);
     ctx.font = '65px DejaVu';
     ctx.textBaseline = 'top';
     ctx.fillStyle = 'black';

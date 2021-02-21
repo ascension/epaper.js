@@ -86,10 +86,10 @@ const waveshare7in5bHDHorizontal = {
     height: 528,
     width: 880,
     driver: waveshare7in5bHDDriver,
-    displayPNG: async function (imgContents, redImgContents) {
-        // const buffer = await image.convertPNGto1BitBW(imgContents);
+    displayPNG: async function (imgContents) {
+        // const { bwBuffer, redBuffer } = await image.convertPNGto1BitBW(imgContents);
         // const redImgBuffer = await image.convertPNGto1BitBW(redImgContents);
-        const { bwBuffer, redBuffer } = displayImageBuffer();
+        const { bwBuffer, redBuffer } = displayImageBuffer(imgContents);
         this.driver.display(bwBuffer, redBuffer);
     },
     init: function () {
