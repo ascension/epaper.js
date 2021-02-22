@@ -3,7 +3,6 @@ const devices = require('./devices.js');
 const readline = require('readline');
 const WebSocket = require('ws');
 const renderBrowser = require('./render.js');
-const { getBitcoinPrice } = require('./graphql');
 
 const defaultConfig = {
     webPort: 3000,
@@ -12,11 +11,11 @@ const defaultConfig = {
     url: `http://localhost:3000/index.html`,
 };
 
-const defaultRenderCallback = (page) => {
+const defaultRenderCallback = async (page) => {
     page.onConsoleLog((msg) => console.log(msg));
 
     await page.display();
-    
+
     // ws.on('message', async (message) => {
     //     if (message === 'render') {
     //     }
@@ -54,4 +53,4 @@ function init(
     });
 }
 
-module.exports = { init, devices, getBitcoinPrice };
+module.exports = { init, devices };

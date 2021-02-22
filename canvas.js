@@ -1,7 +1,7 @@
 import { createCanvas } from 'canvas';
 
-export const RES_WIDTH = 880;
-export const RES_HEIGHT = 528;
+const RES_WIDTH = 880;
+const RES_HEIGHT = 528;
 const RES_PIXEL_COUNT = RES_WIDTH * RES_HEIGHT;
 const TARGET_COLOR_BUFFER_SIZE = RES_PIXEL_COUNT >> 3;
 const SOURCE_COLOR_BUFFER_SIZE = RES_PIXEL_COUNT << 2;

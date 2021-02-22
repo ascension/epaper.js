@@ -25,12 +25,15 @@
     },
     "gypfile": true,
     "dependencies": {
+        "@apollo/client": "^3.3.11",
         "bindings": "^1.5.0",
         "canvas": "^2.6.1",
         "express": "^4.17.1",
+        "graphql": "^15.5.0",
         "node-addon-api": "^3.0.0",
         "png.js": "^0.2.1",
         "puppeteer-core": "^4.0.0",
+        "react": "^17.0.1",
         "sharp": "^0.26.3",
         "ws": "^7.3.1"
     }

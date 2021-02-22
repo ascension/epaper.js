@@ -1,8 +1,8 @@
-import express, { Request, Response, Express } from 'express';
-import bodyParser from 'body-parser';
 // @ts-ignore
-import { init, devices, getBitcoinPrice } from 'epaperjs';
+import { devices } from 'epaperjs';
+import { getBitcoinPrice } from './graphql';
 import text2png from './text2png';
+import cron from 'node-cron';
 
 function setUpDisplay(screen: any) {
     screen.driver.dev_init();
@@ -10,13 +10,12 @@ function setUpDisplay(screen: any) {
     screen.driver.clear();
 }
 
-async function draw() {
-    const display = devices.waveshare7in5bHD;
-    setUpDisplay(devices.waveshare7in5bHD);
+async function render(display) {
     const result = await getBitcoinPrice();
-    console.log({ result });
     const {
-        data: { displayName, priceDate, formattedPrice },
+        data: {
+            asset: { displayName, priceDate, formattedPrice },
+        },
     } = result;
     const img = text2png(
         [
@@ -26,20 +25,6 @@ async function draw() {
                 color: 'red',
             },
             { text: `${formattedPrice}`, color: 'black' },
-            {
-                text: `Price as of ${priceDate}`,
-                font: `${36 / 2}px Futura`,
-                textAlign: 'right',
-                padding: -120 / 2,
-                color: 'black',
-            },
-            {
-                text: `source blockforge.io`,
-                font: `${36 / 2}px Futura`,
-                textAlign: 'right',
-                padding: -320 / 2,
-                color: 'black',
-            },
         ],
         {
             font: `${240 / 2}px Futura`,
@@ -47,37 +32,26 @@ async function draw() {
             backgroundColor: 'white',
             lineSpacing: 10,
             paddingLeft: 160 / 2,
-            paddingTop: 120 / 2,
+            paddingTop: 150 / 2,
             paddingRight: 160 / 2,
-            paddingBottom: 120 / 2,
+            paddingBottom: 150 / 2,
             textAlign: 'left',
+            height: display.height,
+            width: display.width,
         }
     );
 
     await display.displayPNG(img);
 }
 
+async function draw() {
+    const display = devices.waveshare7in5bHD;
+    setUpDisplay(display);
+
+    await render(display);
+    cron.schedule('*/5 * * * *', async () => {
+        await render(display);
+    });
+}
+
 draw();
-
-// init({
-//     screen: devices.waveshare7in5bHD,
-//     staticDirectory: 'dist',
-//     url: 'http://localhost:3000',
-// });
-
-// const app: Express = express();
-
-// app.use(bodyParser.json());
-
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-// const port: number = Number(process.env.PORT) || 8050;
-
-// app.use(express.static('dist'));
-// app.get('/', (req: Request, res: Response) => {
-//     console.log('sending index.html');
-//     res.sendFile('/dist/index.html');
-// });
-
-// app.listen(port);
-// console.log(`App listening on ${port}`);

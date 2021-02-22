@@ -24,6 +24,8 @@ interface Options {
     localFontPath: string;
     localFontName: string;
     borderColor: string;
+    height?: number;
+    width?: number;
     output: 'buffer' | 'stream' | 'dataURL' | 'canvas';
 }
 
