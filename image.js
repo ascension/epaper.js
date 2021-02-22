@@ -28,7 +28,7 @@ function convertPNGto1BitBW(pngBytes) {
                     if (luma < 50) {
                         bwBuffer[out_index] &= ~(0x80 >> Math.floor(x % 8));
                     } else if (b === 0 && r > 0) {
-                        redBuffer[out_index] |= 0x80 >> Math.floor(x % 8));
+                        redBuffer[out_index] |= 0x80 >> Math.floor(x % 8);
                     }
                 }
             }
