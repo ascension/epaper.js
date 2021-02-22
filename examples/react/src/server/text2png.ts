@@ -94,19 +94,19 @@ const text2png = (texts: Text[], options: Partial<Options>) => {
     // parsedOptions.lineSpacing -
     // (max.descent - lastDescent)
 
-    canvas.width =
-        contentWidth +
-        parsedOptions.borderLeftWidth +
-        parsedOptions.borderRightWidth +
-        parsedOptions.paddingLeft +
-        parsedOptions.paddingRight;
+    // canvas.width =
+    //     contentWidth +
+    //     parsedOptions.borderLeftWidth +
+    //     parsedOptions.borderRightWidth +
+    //     parsedOptions.paddingLeft +
+    //     parsedOptions.paddingRight;
 
-    canvas.height =
-        contentHeight +
-        parsedOptions.borderTopWidth +
-        parsedOptions.borderBottomWidth +
-        parsedOptions.paddingTop +
-        parsedOptions.paddingBottom;
+    // canvas.height =
+    //     contentHeight +
+    //     parsedOptions.borderTopWidth +
+    //     parsedOptions.borderBottomWidth +
+    //     parsedOptions.paddingTop +
+    //     parsedOptions.paddingBottom;
 
     const hasBorder =
         false ||
