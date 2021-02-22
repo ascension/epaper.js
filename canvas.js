@@ -1,4 +1,4 @@
-import { createCanvas } from 'canvas';
+const { createCanvas } = require('canvas');
 
 const RES_WIDTH = 880;
 const RES_HEIGHT = 528;
