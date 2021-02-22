@@ -2,6 +2,7 @@
 import { devices } from 'epaperjs';
 import { getBitcoinPrice } from './graphql';
 import text2png from './text2png';
+// @ts-ignore
 import cron from 'node-cron';
 
 function setUpDisplay(screen: any) {
@@ -10,7 +11,7 @@ function setUpDisplay(screen: any) {
     screen.driver.clear();
 }
 
-async function render(display) {
+async function render(display: any) {
     const result = await getBitcoinPrice();
     const {
         data: {
@@ -46,10 +47,18 @@ async function render(display) {
 
 async function draw() {
     const display = devices.waveshare7in5bHD;
+    console.debug('Setting Up Display');
     setUpDisplay(display);
 
+    console.debug('Initial Render Started');
     await render(display);
+
+    cron.schedule('*/1 * * * *', () => {
+        console.debug(`running a task every one minutes - ${new Date()}`);
+    });
+
     cron.schedule('*/5 * * * *', async () => {
+        console.debug(`Update Render Started - ${new Date()}`);
         await render(display);
     });
 }

@@ -22,7 +22,8 @@ function displayImageBuffer(buffer) {
         if (red === 0) {
             bwBuffer[i >> 3] &= ~(0x80 >> (i % RES_WIDTH) % 8);
         } else if (blue === 0 && red > 0) {
-            redBuffer[i >> 3] |= 0x80 >> (i % RES_WIDTH) % 8;
+            redBuffer[i >> 3] &= ~(0x80 >> (i % RES_WIDTH) % 8);
+            // redBuffer[i >> 3] |= 0x80 >> (i % RES_WIDTH) % 8;
         }
     }
 

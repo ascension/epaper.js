@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, gql, HttpLink } from '@apollo/client';
 import fetch from 'cross-fetch';
 
 export const client = new ApolloClient({
-    link: new HttpLink({ uri: 'https://159cfec94697.ngrok.io/api', fetch }),
+    link: new HttpLink({ uri: 'https://www.blockforge.io/api', fetch }),
     cache: new InMemoryCache(),
 });
 

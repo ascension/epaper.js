@@ -48,7 +48,8 @@ const text2png = (texts: Text[], options: Partial<Options>) => {
         });
     }
 
-    const canvas = createCanvas(0, 0);
+    // Make this come from the devices width and height
+    const canvas = createCanvas(880, 528);
     const ctx = canvas.getContext('2d');
 
     const max = {
